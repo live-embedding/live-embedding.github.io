@@ -1,0 +1,347 @@
+/* LIVE Project Page Styles */
+/* Inspired by Zero-1-to-3 (https://zero123.cs.columbia.edu/) */
+
+:root {
+    --primary-color: #2c3e50;
+    --accent-color: #3498db;
+    --accent-hover: #2980b9;
+    --text-color: #333;
+    --light-text: #666;
+    --bg-color: #fff;
+    --section-bg: #f8f9fa;
+    --border-color: #e9ecef;
+    --highlight-color: #e8f4fc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', 'Open Sans', sans-serif;
+    line-height: 1.7;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.venue {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.authors {
+    margin-bottom: 10px;
+}
+
+.author {
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.author a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.author a:hover {
+    text-decoration: underline;
+}
+
+.affiliations {
+    color: var(--light-text);
+    font-size: 0.95rem;
+}
+
+/* Teaser */
+.teaser {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.teaser img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.teaser-caption {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: var(--light-text);
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* TL;DR */
+.tldr {
+    background-color: var(--highlight-color);
+    padding: 25px 30px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    border-left: 4px solid var(--accent-color);
+}
+
+.tldr h2 {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.tldr p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Links */
+.links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 50px;
+}
+
+.link-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: var(--accent-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.link-button:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+}
+
+.link-button i {
+    font-size: 1.1rem;
+}
+
+/* Sections */
+.section {
+    margin-bottom: 50px;
+}
+
+.section h2 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.section h3 {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.section h4 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.section p {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+/* Figures */
+.figure {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.caption {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: var(--light-text);
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+}
+
+/* Equation */
+.equation {
+    background-color: var(--section-bg);
+    padding: 15px 20px;
+    border-radius: 6px;
+    font-family: 'Times New Roman', serif;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Tables */
+.table-container {
+    margin: 30px 0;
+    overflow-x: auto;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.95rem;
+}
+
+.results-table th,
+.results-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.results-table th {
+    background-color: var(--section-bg);
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.results-table tr:hover {
+    background-color: var(--section-bg);
+}
+
+.results-table tr.highlight {
+    background-color: var(--highlight-color);
+}
+
+.results-table tr.highlight:hover {
+    background-color: var(--highlight-color);
+}
+
+.table-note {
+    font-size: 0.9rem;
+    color: var(--light-text);
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Citation */
+.citation pre {
+    background-color: var(--section-bg);
+    padding: 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.citation code {
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--text-color);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color);
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+.footer a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 15px;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .link-button {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+    }
+
+    .section h2 {
+        font-size: 1.5rem;
+    }
+
+    .results-table {
+        font-size: 0.85rem;
+    }
+
+    .results-table th,
+    .results-table td {
+        padding: 8px 10px;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section {
+    animation: fadeIn 0.6s ease-out;
+}

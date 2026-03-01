@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIVE: Language-Instructed Vision Embeddings for Controllable and Generalizable Perception</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">Language-Instructed Vision Embeddings for Controllable and Generalizable Perception</h1>
+            <p class="venue">ICLR 2026</p>
+
+            <div class="authors">
+                <span class="author">Chengzhi Mao</span>,
+                <span class="author">Xudong Lin</span>,
+                <span class="author">Wen-Sheng Chu</span>
+            </div>
+
+            <div class="affiliations">
+                <span class="affiliation">Google</span>
+            </div>
+        </header>
+
+        <!-- Teaser -->
+        <section class="teaser">
+            <img src="assets/teaser.png" alt="LIVE enables language-controlled vision embeddings">
+            <p class="teaser-caption">
+                <strong>LIVE (Language-Instructed Vision Embedding).</strong>
+                State-of-the-art vision models struggle to distinguish between text and objects.
+                LIVE allows user-guided focus on specified aspects (e.g., "fruit" vs. "text"), boosting control and prediction accuracy.
+            </p>
+        </section>
+
+        <!-- TL;DR -->
+        <section class="tldr">
+            <h2>TL;DR</h2>
+            <p>
+                We introduce <strong>LIVE</strong>, a framework that enables vision encoders to dynamically adapt their representations
+                based on language instructions. By distilling knowledge from LLMs into vision encoders via contrastive learning,
+                LIVE achieves <strong>34-point improvement</strong> on hallucination benchmarks and outperforms LLM-based methods
+                with <strong>10x fewer parameters</strong>.
+            </p>
+        </section>
+
+        <!-- Links -->
+        <section class="links">
+            <a href="#" class="link-button">
+                <i class="fas fa-file-pdf"></i> Paper
+            </a>
+            <a href="#" class="link-button">
+                <i class="fas fa-database"></i> Dataset
+            </a>
+        </section>
+
+        <!-- Abstract -->
+        <section class="section">
+            <h2>Abstract</h2>
+            <p>
+                A hallmark of human vision is its active, selective nature. Guided by internal goals or task demands,
+                we focus on relevant parts of the visual world while ignoring distractions. In contrast, today's leading
+                vision models produce static, pre-computed representations without reference to the specific query they are meant to serve.
+            </p>
+            <p>
+                We address this challenge with <strong>LIVE (Language-Instructed Vision Embeddings)</strong>, a simple and effective
+                framework for creating language-steered vision embeddings. LIVE enables dynamic, fine-grained control of a vision
+                encoder by training it to follow textual instructions. We use LLMs to generate synthetic instruction-response pairs,
+                which we combine with images into contrastive triplets. This teaches the vision encoder to steer its embeddings
+                based on textual commands, allowing it to highlight relevant attributes or suppress adversarial cues.
+            </p>
+            <p>
+                Once trained, LIVE yields standalone, language-steered embeddings that downstream tasks can use directly—no large
+                LLMs or task-specific fine-tuning required. Trained on synthetic ImageNet-based data, LIVE generalizes strongly
+                to real, unseen tasks: it <strong>reduces hallucinations by 34 points</strong> on MMVP, and <strong>surpasses
+                LLM-based counterparts on GQA by 7 points</strong> with less than 10% of their parameters.
+            </p>
+        </section>
+
+        <!-- Method -->
+        <section class="section">
+            <h2>Method</h2>
+            <div class="figure">
+                <img src="assets/arch.png" alt="LIVE Architecture">
+                <p class="caption">
+                    <strong>Instructive Vision Encoder Design.</strong>
+                    Prior vision-language models like CLIP and SigLip use two-tower architecture with separate vision and text encoders.
+                    We reuse the text tower to embed the query, apply a projection layer, and feed it into the vision transformer
+                    alongside the input image. The text encoder is frozen; only the vision encoder is trained.
+                </p>
+            </div>
+
+            <h3>Language-Instructed Visual Embeddings</h3>
+            <p>
+                Standard vision-language models generate a general-purpose embedding intended to capture all relevant information
+                in an image. However, to serve diverse downstream tasks, these representations must be versatile and precise.
+                We propose a language-conditioned vision encoder that dynamically processes the image based on a textual instruction:
+            </p>
+            <div class="equation">
+                z<sup>(I)</sup> = E<sub>live</sub>(x, T(q))
+            </div>
+            <p>
+                This formulation allows the vision encoder to focus its computation on the aspects of the image most relevant
+                to the language instruction, producing a targeted, task-specific representation.
+            </p>
+
+            <h3>Knowledge Transfer from LLM</h3>
+            <div class="figure">
+                <img src="assets/training_data.png" alt="Training Data Generation">
+                <p class="caption">
+                    <strong>Triplet Training Data from LLM.</strong>
+                    We apply Gemini-2.0-Flash to automatically create diversified, open-world triplet data containing image, query,
+                    and answer. This method moves beyond generic questions from existing image-text data, allowing for nuanced
+                    and sophisticated exploration of individual image content.
+                </p>
+            </div>
+        </section>
+
+        <!-- Results -->
+        <section class="section">
+            <h2>Results</h2>
+
+            <h3>Reducing Visual Hallucinations</h3>
+            <div class="figure">
+                <img src="assets/iclip_mmvp.png" alt="MMVP Results">
+                <p class="caption">
+                    <strong>LIVE Reduces Visual Hallucinations (MMVP Benchmark).</strong>
+                    State-of-the-art vision-only embeddings (left column) must perceive the entire scene without query-specific guidance,
+                    making them prone to hallucination when precise details are needed. By modulating visual computation with the input
+                    text query (right column), our method selectively focuses on relevant information, mitigating hallucinations.
+                </p>
+            </div>
+
+            <!-- Results Table -->
+            <div class="table-container">
+                <h4>Zero-Shot Accuracy on MMVP-VLM Benchmark</h4>
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Params (M)</th>
+                            <th>Average Acc.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>OpenAI ViT-L-14</td>
+                            <td>427.6</td>
+                            <td>19.3%</td>
+                        </tr>
+                        <tr>
+                            <td>SigLIP ViT-SO-14</td>
+                            <td>878.0</td>
+                            <td>37.0%</td>
+                        </tr>
+                        <tr>
+                            <td>LLaVa</td>
+                            <td>~13,000</td>
+                            <td>31.3%</td>
+                        </tr>
+                        <tr>
+                            <td>BRAVE</td>
+                            <td>~10,300</td>
+                            <td>42.0%</td>
+                        </tr>
+                        <tr class="highlight">
+                            <td><strong>LIVE (Ours)</strong></td>
+                            <td>891.0</td>
+                            <td><strong>76.3%</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="table-note">Our method achieves a <strong>34-point</strong> improvement over prior state-of-the-art.</p>
+            </div>
+
+            <h3>Language-Steered Retrieval</h3>
+            <div class="figure">
+                <img src="assets/retrieval.png" alt="Retrieval Results">
+                <p class="caption">
+                    <strong>LIVE's Retrieval based on Language Instructions.</strong>
+                    Our method demonstrates superior retrieval accuracy: (1) recognizes non-visible elements,
+                    (2) follows instructions to ignore distractors, (3) attends to specific factors,
+                    (4) performs basic spatial reasoning, (5) perceives relationships.
+                </p>
+            </div>
+
+            <h3>Attention Visualization</h3>
+            <div class="figure">
+                <img src="assets/iclip_att.png" alt="Attention Visualization">
+                <p class="caption">
+                    <strong>Zero-Shot Language Instructions Steer Visual Attention.</strong>
+                    Unlike baseline encoders producing global attention (SigLip, left), our LIVE uses instructions to focus dynamically.
+                    Prompting for "text" highlights the "iPod" label; prompting for "fruit" highlights only the apple, ignoring the label.
+                </p>
+            </div>
+
+            <h3>GQA Performance</h3>
+            <div class="table-container">
+                <h4>Zero-Shot Retrieval Accuracy on GQA</h4>
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Accuracy (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BLIP-2</td>
+                            <td>44.7</td>
+                        </tr>
+                        <tr>
+                            <td>InstructBLIP</td>
+                            <td>49.5</td>
+                        </tr>
+                        <tr>
+                            <td>BRAVE</td>
+                            <td>52.7</td>
+                        </tr>
+                        <tr>
+                            <td>LLaVa</td>
+                            <td>63.3</td>
+                        </tr>
+                        <tr class="highlight">
+                            <td><strong>LIVE (Ours, ViT-B-16)</strong></td>
+                            <td><strong>71.2</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Training Data Impact -->
+        <section class="section">
+            <h2>Analysis</h2>
+            <div class="figure">
+                <img src="assets/data.png" alt="Impact of Training Data">
+                <p class="caption">
+                    <strong>Impact of Triplet Training Data on LIVE Method's Accuracy.</strong>
+                    Models trained with our LLM-generated ImageNet triplet dataset significantly outperform those trained
+                    on existing image-language datasets across diverse benchmarks. This highlights the benefit of using LLMs
+                    to overcome traditional data limitations for training transferable vision encoders.
+                </p>
+            </div>
+        </section>
+
+        <!-- Comparison Figure -->
+        <section class="section">
+            <h2>Comparison with Baselines</h2>
+            <div class="figure">
+                <img src="assets/comparison.png" alt="Comparison with Baselines">
+                <p class="caption">
+                    <strong>Comparison with baseline methods.</strong>
+                    LIVE consistently outperforms vision-only and fusion-based baselines across multiple benchmarks.
+                </p>
+            </div>
+        </section>
+
+        <!-- Citation -->
+        <section class="section citation">
+            <h2>BibTeX</h2>
+            <pre><code>@inproceedings{mao2026live,
+  title={Language-Instructed Vision Embeddings for Controllable and Generalizable Perception},
+  author={Mao, Chengzhi and Lin, Xudong and Chu, Wen-Sheng},
+  booktitle={International Conference on Learning Representations (ICLR)},
+  year={2026}
+}</code></pre>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>
+                Website template inspired by <a href="https://zero123.cs.columbia.edu/">Zero-1-to-3</a>.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
